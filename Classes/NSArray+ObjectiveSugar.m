@@ -77,7 +77,7 @@ static NSString * const OSMinusString = @"-";
 
 - (BOOL)all:(BOOL (^)(id))block {
     for (id object in self) {
-        if (!(block(object))) {
+        if (!block(object)) {
             return NO;
         }
     }
@@ -86,7 +86,7 @@ static NSString * const OSMinusString = @"-";
 
 - (BOOL)any:(BOOL (^)(id object))block {
     for (id object in self) {
-        if ((block(object))) {
+        if (block(object)) {
             return YES;
         }
     }
