@@ -163,6 +163,10 @@ static NSString * const OSMinusString = @"-";
     return [self sortedArrayUsingDescriptors:@[descriptor]];
 }
 
+- (NSArray *)sortWith:(NSComparator)comparator {
+    return [self sortedArrayUsingComparator:comparator];
+}
+
 - (NSArray *)reverse {
     return self.reverseObjectEnumerator.allObjects;
 }

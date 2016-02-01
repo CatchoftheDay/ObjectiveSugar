@@ -246,6 +246,15 @@ describe(@"NSArray categories", ^{
             [[[@[ dict_4, dict_1, dict_3, dict_2 ] sortBy:@"name"] should] equal:@[ dict_1, dict_2, dict_3, dict_4 ]];
         });
 
+        it(@"-sortWith sorts using the given comparator", ^{
+            NSArray *input = [NSArray array];
+            NSArray *sorted = [NSArray mockWithName:@"Sorted Array"];
+            NSComparisonResult (^comparator)(id, id) = ^NSComparisonResult(id obj1, id obj2) {
+                return [obj1 compare:obj2];
+            };
+            [[input should] receive:@selector(sortedArrayUsingComparator:) andReturn:sorted withArguments:comparator];
+            [[[input sortWith:comparator] should] equal:sorted];
+        });
     });
 
 });
