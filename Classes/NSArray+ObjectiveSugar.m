@@ -84,6 +84,15 @@ static NSString * const OSMinusString = @"-";
     return YES;
 }
 
+- (BOOL)any:(BOOL (^)(id object))block {
+    for (id object in self) {
+        if ((block(object))) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (NSArray *)take:(NSUInteger)numberOfElements {
     return [self subarrayWithRange:NSMakeRange(0, MIN(numberOfElements, [self count]))];
 }

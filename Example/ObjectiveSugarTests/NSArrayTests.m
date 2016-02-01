@@ -273,6 +273,25 @@ describe(@"NSArray categories", ^{
             }]) should] equal:@YES];
         });
     });
+    
+    context(@"-any", ^{
+        
+        it(@"stops the first time the block returns YES and returns YES", ^{
+            __block NSUInteger count = 0;
+            [[@([@[@1,@2,@3] any:^BOOL(id obj) {
+                count++;
+                return [obj integerValue] % 2 == 0;
+            }]) should] equal:@YES];
+            [[theValue(count) should] equal:theValue(2)];
+        });
+        
+        it(@"returns NO if block always returns NO", ^{
+            [[@([@[@1,@2,@3] any:^BOOL(id obj) {
+                return [obj integerValue] > 3;
+            }]) should] equal:@NO];
+        });
+        
+    });
 });
 
 
