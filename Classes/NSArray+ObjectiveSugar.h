@@ -94,6 +94,14 @@
 - (BOOL)includes:(id)object;
 
 /**
+ Check if all values in the array pass the block.
+ 
+ @param block A block that accepts each successive object and returns a `BOOL` result.
+ @return Returns `YES` if the block returns `YES` for all objects in the array. If the block returns `NO` for at least one object, returns `NO`.
+ */
+- (BOOL)all:(BOOL (^)(id))block;
+
+/**
  Take the first `numberOfElements` out of the array, or the maximum amount of
  elements if it is less.
 
