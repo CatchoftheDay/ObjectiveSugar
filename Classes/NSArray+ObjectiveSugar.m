@@ -75,6 +75,24 @@ static NSString * const OSMinusString = @"-";
     return [self containsObject:object];
 }
 
+- (BOOL)all:(BOOL (^)(id))block {
+    for (id object in self) {
+        if (!block(object)) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
+- (BOOL)any:(BOOL (^)(id object))block {
+    for (id object in self) {
+        if (block(object)) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (NSArray *)take:(NSUInteger)numberOfElements {
     return [self subarrayWithRange:NSMakeRange(0, MIN(numberOfElements, [self count]))];
 }
@@ -161,6 +179,10 @@ static NSString * const OSMinusString = @"-";
 - (NSArray *)sortBy:(NSString*)key; {
     NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:key ascending:YES];
     return [self sortedArrayUsingDescriptors:@[descriptor]];
+}
+
+- (NSArray *)sortWith:(NSComparator)comparator {
+    return [self sortedArrayUsingComparator:comparator];
 }
 
 - (NSArray *)reverse {
